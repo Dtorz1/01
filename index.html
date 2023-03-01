@@ -1,12 +1,108 @@
-<!DOCTYPE html>
+<!-- // -- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // █████╗░██╗██████╗░██╗███████╗██████╗░  ████████╗░█████╗░██████╗░░█████╗░░░░
+  // ██╔══██╗██║██╔══██╗██║██╔════╝██╔══██╗  ╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗░░░
+  // ██║░░██║██║██║░░██║██║█████╗░░██████╔╝  ░░░██║░░░██║░░██║██████╔╝██║░░██║░░░
+  // ██║░░██║██║██║░░██║██║██╔══╝░░██╔══██╗  ░░░██║░░░██║░░██║██╔══██╗██║░░██║░░░
+  // ██████╔╝██║██████╔╝██║███████╗██║░░██║  ░░░██║░░░╚█████╔╝██║░░██║╚█████╔╝██╗
+  // ╚═════╝░╚═╝╚═════╝░╚═╝╚══════╝╚═╝░░╚═╝  ░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░╚════╝░╚═╝
+  // -- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Programa Multiproceso</title>
+
+    <!-- codigo css -->
+    <style>
+      #cuadro1,
+      #cuadro2 {
+        width: 230px;
+        height: 350px;
+        border: 2px solid black;
+        padding: 10px;
+        background-color: aquamarine;
+        font-size: 40px;
+        font-weight: bold;
+        color: black;
+        overflow-y: scroll; /* Para habilitar la barra de desplazamiento vertical */
+      }
+      #caja1,
+      #caja2 {
+        display: inline-flex;
+      }
+
+      #boton {
+        font-size: 16px;
+        font-weight: bold;
+        color: black;
+        border: 2px solid black;
+        background-color: rgb(91, 252, 86);
+      }
+      #titulo {
+        text-align: left;
+        font-family: Arial Black;
+        font-weight: bold;
+        font-size: 45px;
+        color: #fff;
+        text-shadow: 0 1px 0 #ddd, 0 2px 0 #ccc, 0 3px 0 #bbb, 0 4px 0 #aaa,
+          0 5px 0 #acacac, 0 6px 1px rgba(0, 0, 0, 0.1),
+          0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3),
+          0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25),
+          0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+      }
+    </style>
+
+    <!-- codigo javascript -->
+    <script>
+      let intervalId1, intervalId2;
+
+      function imprimirNumeros1() {
+        clearInterval(intervalId2); // el otro boton detiene la ejecusion
+        let i = 1;
+
+        intervalId1 = setInterval(() => {
+          if (i > 100) {
+            clearInterval(intervalId1); // al llegar a 100 se detiene todo
+            return;
+          }
+          document.getElementById("cuadro1").innerHTML += i + "<br>";
+          i++;
+        }, 1000); // Imprimir cada número después de un segundo (1000 ms)
+      }
+      //  igual que arriba pero para el otro recuadro
+      function imprimirNumeros2() {
+        clearInterval(intervalId1);
+        let i = 1;
+
+        intervalId2 = setInterval(() => {
+          if (i > 100) {
+            clearInterval(intervalId2);
+            return;
+          }
+          // temporizador
+          // imprime cada segundo
+          document.getElementById("cuadro2").innerHTML += i + "<br>";
+          i++;
+        }, 1000);
+      }
+    </script>
   </head>
-  <body>
-    <h1>hola mundo</h1>
+  <body style="background-color: rgb(161, 172, 235)">
+    <div id="titulo">DIDIER VIDEY TORO ZARATE</div>
+
+    <!-- espacio de impresion 1 -->
+    <div id="caja1">
+      <!-- al precionar el boton ejecuta la funcion -->
+      <button id="boton" onclick="imprimirNumeros1()">Proceso 1</button>
+      <div id="cuadro1"></div>
+    </div>
+
+    <!-- espacio de impresion 2 -->
+    <div id="caja2">
+      <button id="boton" onclick="imprimirNumeros2()">Proceso 2</button>
+      <div id="cuadro2"></div>
+    </div>
   </body>
 </html>
